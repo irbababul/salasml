@@ -9,12 +9,12 @@ Library Python untuk mempercepat workflow Machine Learning — pipeline preproce
 ### Cara 1 — Install dari GitHub (direkomendasikan)
 
 ```bash
-pip install git+https://github.com/salasml/salasml.git
+pip install git+https://github.com/irbababul/salasml.git
 ```
 
 ### Cara 2 — Install dari file `.whl`
 
-Download file `salasml-1.0.0-py3-none-any.whl` dari [Releases](../../releases), lalu:
+Download file `salasml-1.0.0-py3-none-any.whl` dari [Releases](https://github.com/irbababul/salasml/releases), lalu:
 
 ```bash
 pip install salasml-1.0.0-py3-none-any.whl
@@ -23,7 +23,7 @@ pip install salasml-1.0.0-py3-none-any.whl
 ### Cara 3 — Install dari source (clone repo)
 
 ```bash
-git clone https://github.com/salasml/salasml.git
+git clone https://github.com/irbababul/salasml.git
 cd salasml
 pip install -e .
 ```
