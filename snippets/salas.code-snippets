@@ -1,0 +1,293 @@
+{
+    "Salas: Import common packages": {
+        "scope": "python,jupyter",
+        "prefix": "salas-import",
+        "body": [
+            "import numpy as np",
+            "import pandas as pd",
+            "",
+            "from sklearn.model_selection import train_test_split",
+            "from sklearn.pipeline import Pipeline",
+            "from sklearn.compose import ColumnTransformer",
+            "",
+            "from salasml.pipeline import num_pipe, cat_pipe",
+            "from salasml.utils import save_model, load_model",
+            "from salasml.plot import plot_missing_value",
+            "from salasml.feature_importance import mean_score_decrease"
+        ],
+        "description": "Import common packages"
+    },
+
+    "Salas: Import csv data": {
+        "scope": "python,jupyter",
+        "prefix": "salas-csv",
+        "body": [
+            "df = pd.read_csv(\"____________\", index_col=\"___________\", parse_dates=[\"____________\"])",
+            "df.head()"
+        ],
+        "description": "Import csv data"
+    },
+
+    "Salas: Shuffle Split": {
+        "scope": "python,jupyter",
+        "prefix": "salas-split",
+        "body": [
+            "X = df.drop(columns=\"___________\")",
+            "y = \"_____________\"",
+            "",
+            "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+            "X_train.shape, X_test.shape, y_train.shape, y_test.shape"
+        ],
+        "description": "Dataset Splitting - Shuffle Split"
+    },
+
+    "Salas: Stratified Shuffle Split": {
+        "scope": "python,jupyter",
+        "prefix": "salas-split-strat",
+        "body": [
+            "X = df.drop(columns=\"___________\")",
+            "y = \"_____________\"",
+            "",
+            "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)",
+            "X_train.shape, X_test.shape, y_train.shape, y_test.shape"
+        ],
+        "description": "Dataset Splitting - Stratified Shuffle Split"
+    },
+
+    "Salas: Preprocessor Common": {
+        "scope": "python,jupyter",
+        "prefix": "salas-prep",
+        "body": [
+            "preprocessor = ColumnTransformer([",
+            "    ('numeric', num_pipe(), [\"______________\"]),",
+            "    ('categoric', cat_pipe(encoder='onehot'), [\"_____________\"]),",
+            "])"
+        ],
+        "description": "Preprocessor - Common"
+    },
+
+    "Salas: Preprocessor Advance": {
+        "scope": "python,jupyter",
+        "prefix": "salas-prep-adv",
+        "body": [
+            "# Note: You could not use gsp, rsp, and bsp recommendation in advance mode",
+            "# You should specify your own parameter grid / interval when tuning",
+            "preprocessor = ColumnTransformer([",
+            "    ('numeric1', num_pipe(impute='mean', poly=2, scaling='standard', transform='yeo-johnson'), [\"______________\"]),",
+            "    ('numeric2', num_pipe(impute='median', poly=2, scaling='robust'), [\"______________\"]),",
+            "    ('categoric1', cat_pipe(encoder='ordinal'), [\"_____________\"]),",
+            "    ('categoric2', cat_pipe(encoder='onehot'), [\"_____________\"])    ",
+            "])"
+        ],
+        "description": "Preprocessor - Advance example"
+    },
+
+    "Salas: Regression KNN": {
+        "scope": "python,jupyter",
+        "prefix": "salas-reg-knn",
+        "body": [
+            "from sklearn.neighbors import KNeighborsRegressor",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', KNeighborsRegressor())",
+            "])"
+        ],
+        "description": "Regression - K-Nearest Neighbor (KNN)"
+    },
+
+    "Salas: Regression SVM": {
+        "scope": "python,jupyter",
+        "prefix": "salas-reg-svm",
+        "body": [
+            "from sklearn.svm import SVR",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', SVR(max_iter=500))",
+            "])"
+        ],
+        "description": "Regression - Support Vector Machine (SVM)"
+    },
+
+    "Salas: Regression Random Forest": {
+        "scope": "python,jupyter",
+        "prefix": "salas-reg-rf",
+        "body": [
+            "from sklearn.ensemble import RandomForestRegressor",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', RandomForestRegressor(n_jobs=-1, random_state=42))",
+            "])"
+        ],
+        "description": "Regression - Random Forest (RF)"
+    },
+
+    "Salas: Regression XGBoost": {
+        "scope": "python,jupyter",
+        "prefix": "salas-reg-xgb",
+        "body": [
+            "from xgboost import XGBRegressor",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', XGBRegressor(n_jobs=-1, random_state=42))",
+            "])"
+        ],
+        "description": "Regression - Extreme Gradient Boosting (XGBoost)"
+    },
+
+    "Salas: Regression Linear": {
+        "scope": "python,jupyter",
+        "prefix": "salas-reg-linear",
+        "body": [
+            "from sklearn.linear_model import LinearRegression",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', LinearRegression())",
+            "])"
+        ],
+        "description": "Regression - Linear Regression"
+    },
+
+    "Salas: Regression ElasticNet": {
+        "scope": "python,jupyter",
+        "prefix": "salas-reg-enet",
+        "body": [
+            "from sklearn.linear_model import ElasticNet",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', ElasticNet())",
+            "])"
+        ],
+        "description": "Regression - ElasticNet Regression"
+    },
+
+    "Salas: Classification KNN": {
+        "scope": "python,jupyter",
+        "prefix": "salas-clf-knn",
+        "body": [
+            "from sklearn.neighbors import KNeighborsClassifier",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', KNeighborsClassifier())",
+            "])"
+        ],
+        "description": "Classification - K-Nearest Neighbor (KNN)"
+    },
+
+    "Salas: Classification SVM": {
+        "scope": "python,jupyter",
+        "prefix": "salas-clf-svm",
+        "body": [
+            "from sklearn.svm import SVC",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', SVC(max_iter=500))",
+            "])"
+        ],
+        "description": "Classification - Support Vector Machine (SVM)"
+    },
+
+    "Salas: Classification Random Forest": {
+        "scope": "python,jupyter",
+        "prefix": "salas-clf-rf",
+        "body": [
+            "from sklearn.ensemble import RandomForestClassifier",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', RandomForestClassifier(n_jobs=-1, random_state=42))",
+            "])"
+        ],
+        "description": "Classification - Random Forest (RF)"
+    },
+
+    "Salas: Classification XGBoost": {
+        "scope": "python,jupyter",
+        "prefix": "salas-clf-xgb",
+        "body": [
+            "from xgboost import XGBClassifier",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', XGBClassifier(n_jobs=-1, random_state=42))",
+            "])"
+        ],
+        "description": "Classification - Extreme Gradient Boosting (XGBoost)"
+    },
+
+    "Salas: Classification Logistic Regression": {
+        "scope": "python,jupyter",
+        "prefix": "salas-clf-logistic",
+        "body": [
+            "from sklearn.linear_model import LogisticRegression",
+            "pipeline = Pipeline([",
+            "    ('prep', preprocessor),",
+            "    ('algo', LogisticRegression(solver='lbfgs', n_jobs=-1, random_state=42))",
+            "])"
+        ],
+        "description": "Classification - Logistic Regression"
+    },
+
+    "Salas: Grid Search": {
+        "scope": "python,jupyter",
+        "prefix": "salas-tune-grid",
+        "body": [
+            "from sklearn.model_selection import GridSearchCV",
+            "from salasml.tuning import grid_search_params as gsp",
+            "",
+            "model = GridSearchCV(pipeline, gsp._______________,  cv=___, scoring='___', n_jobs=-1, verbose=1)",
+            "model.fit(X_train, y_train)",
+            "",
+            "print(model.best_params_)",
+            "print(model.score(X_train, y_train), model.best_score_, model.score(X_test, y_test))"
+        ],
+        "description": "Hyperparameter Tuning - Grid Search"
+    },
+
+    "Salas: Randomized Search": {
+        "scope": "python,jupyter",
+        "prefix": "salas-tune-random",
+        "body": [
+            "from sklearn.model_selection import RandomizedSearchCV",
+            "from salasml.tuning import random_search_params as rsp",
+            "",
+            "model = RandomizedSearchCV(pipeline, rsp._______________, cv=___, scoring='___', n_iter=___, n_jobs=-1, verbose=1, random_state=42)",
+            "model.fit(X_train, y_train)",
+            "",
+            "print(model.best_params_)",
+            "print(model.score(X_train, y_train), model.best_score_, model.score(X_test, y_test))"
+        ],
+        "description": "Hyperparameter Tuning - Randomized Search"
+    },
+
+    "Salas: Bayesian Search": {
+        "scope": "python,jupyter",
+        "prefix": "salas-tune-bayes",
+        "body": [
+            "from salasml.tuning import bayes_search_params as bsp",
+            "from skopt import BayesSearchCV",
+            "",
+            "model = BayesSearchCV(pipeline, bsp._______________, cv=___, scoring='___', n_iter=___, n_jobs=-1, verbose=1, random_state=42)",
+            "model.fit(X_train, y_train)",
+            "",
+            "print(model.best_params_)",
+            "print(model.score(X_train, y_train), model.best_score_, model.score(X_test, y_test))"
+        ],
+        "description": "Hyperparameter Tuning - Bayesian Search"
+    },
+
+    "Salas: Save the whole search object": {
+        "scope": "python,jupyter",
+        "prefix": "salas-save",
+        "body": [
+            "save_model(model, \"__________.pkl\")"
+        ],
+        "description": "Save model - Save the whole search object"
+    },
+
+    "Salas: Save best estimator only": {
+        "scope": "python,jupyter",
+        "prefix": "salas-save-best",
+        "body": [
+            "save_model(model.best_estimator_, \"__________.pkl\")"
+        ],
+        "description": "Save model - Save best estimator only"
+    }
+}

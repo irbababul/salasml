@@ -1,0 +1,262 @@
+{
+    "name": "Salas Snippets",
+    "sub-menu": [
+        {
+            "name": "Import common packages",
+            "snippet": [
+                "import numpy as np",
+                "import pandas as pd",
+                "",
+                "from sklearn.model_selection import train_test_split",
+                "from sklearn.pipeline import Pipeline",
+                "from sklearn.compose import ColumnTransformer",
+                "",
+                "from salasml.pipeline import num_pipe, cat_pipe",
+                "from salasml.utils import save_model, load_model",
+                "from salasml.plot import plot_missing_value",
+                "from salasml.feature_importance import mean_score_decrease"
+            ]
+        },
+        {
+            "name": "Import csv data",
+            "snippet": [
+                "df = pd.read_csv(\"____________\", index_col=\"___________\", parse_dates=[\"____________\"])",
+                "df.head()"
+            ]
+        },
+        {
+            "name": "Dataset Splitting",
+            "sub-menu": [
+                {
+                    "name": "Shuffle Split",
+                    "snippet": [
+                        "X = df.drop(columns=\"___________\")",
+                        "y = \"_____________\"",
+                        "",
+                        "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+                        "X_train.shape, X_test.shape, y_train.shape, y_test.shape"
+                    ]
+                },
+                {
+                    "name": "Stratified Shuffle Split",
+                    "snippet": [
+                        "X = df.drop(columns=\"___________\")",
+                        "y = \"_____________\"",
+                        "",
+                        "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)",
+                        "X_train.shape, X_test.shape, y_train.shape, y_test.shape"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Preprocessor",
+            "sub-menu": [
+                {
+                    "name": "Common",
+                    "snippet": [
+                        "preprocessor = ColumnTransformer([",
+                        "    ('numeric', num_pipe(), [\"______________\"]),",
+                        "    ('categoric', cat_pipe(encoder='onehot'), [\"_____________\"]),",
+                        "])"
+                    ]
+                },
+                {
+                    "name": "Advance example",
+                    "snippet": [
+                        "# Note: You could not use gsp, rsp, and bsp recommendation in advance mode",
+                        "# You should specify your own parameter grid / interval when tuning",
+                        "preprocessor = ColumnTransformer([",
+                        "    ('numeric1', num_pipe(impute='mean', poly=2, scaling='standard', transform='yeo-johnson'), [\"______________\"]),",
+                        "    ('numeric2', num_pipe(impute='median', poly=2, scaling='robust'), [\"______________\"]),",
+                        "    ('categoric1', cat_pipe(encoder='ordinal'), [\"_____________\"]),",
+                        "    ('categoric2', cat_pipe(encoder='onehot'), [\"_____________\"])    ",
+                        "])"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Supervised Learning Pipeline",
+            "sub-menu": [
+                {
+                    "name": "Regression",
+                    "sub-menu": [
+                        {
+                            "name": "K-Nearest Neighbor (KNN)",
+                            "snippet": [
+                                "from sklearn.neighbors import KNeighborsRegressor",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', KNeighborsRegressor())",
+                                "])"
+                            ]
+                        },
+                        {
+                            "name": "Support Vector Machine (SVM)",
+                            "snippet": [
+                                "from sklearn.svm import SVR",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', SVR(max_iter=500))",
+                                "])"
+                            ]
+                        },
+                        {
+                            "name": "Random Forest (RF)",
+                            "snippet": [
+                                "from sklearn.ensemble import RandomForestRegressor",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', RandomForestRegressor(n_jobs=-1, random_state=42))",
+                                "])"
+                            ]
+                        },
+                        {
+                            "name": "Extreme Gradient Boosting (XGBoost)",
+                            "snippet": [
+                                "from xgboost import XGBRegressor",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', XGBRegressor(n_jobs=-1, random_state=42))",
+                                "])"
+                            ]
+                        },
+                        {
+                            "name": "Linear Regression",
+                            "snippet": [
+                                "from sklearn.linear_model import LinearRegression",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', LinearRegression())",
+                                "])"
+                            ]
+                        },
+                        {
+                            "name": "ElasticNet Regression",
+                            "snippet": [
+                                "from sklearn.linear_model import ElasticNet",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', ElasticNet())",
+                                "])"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Classification",
+                    "sub-menu": [
+                        {
+                            "name": "K-Nearest Neighbor (KNN)",
+                            "snippet": [
+                                "from sklearn.neighbors import KNeighborsClassifier",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', KNeighborsClassifier())",
+                                "])"
+                            ]
+                        },
+                        {
+                            "name": "Support Vector Machine (SVM)",
+                            "snippet": [
+                                "from sklearn.svm import SVC",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', SVC(max_iter=500))",
+                                "])"
+                            ]
+                        },
+                        {
+                            "name": "Random Forest (RF)",
+                            "snippet": [
+                                "from sklearn.ensemble import RandomForestClassifier",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', RandomForestClassifier(n_jobs=-1, random_state=42))",
+                                "])"
+                            ]
+                        },
+                        {
+                            "name": "Extreme Gradient Boosting (XGBoost)",
+                            "snippet": [
+                                "from xgboost import XGBClassifier",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', XGBClassifier(n_jobs=-1, random_state=42))",
+                                "])"
+                            ]
+                        },
+                        {
+                            "name": "Logistic Regression",
+                            "snippet": [
+                                "from sklearn.linear_model import LogisticRegression",
+                                "pipeline = Pipeline([",
+                                "    ('prep', preprocessor),",
+                                "    ('algo', LogisticRegression(solver='lbfgs', n_jobs=-1, random_state=42))",
+                                "])"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Hyperparameter Tuning",
+            "sub-menu": [
+                {
+                    "name": "Grid Search",
+                    "snippet": [
+                        "from sklearn.model_selection import GridSearchCV",
+                        "from salasml.tuning import grid_search_params as gsp",
+                        "",
+                        "model = GridSearchCV(pipeline, gsp._______________, cv=___, scoring='___', n_jobs=-1, verbose=1)",
+                        "model.fit(X_train, y_train)",
+                        "",
+                        "print(model.best_params_)",
+                        "print(model.score(X_train, y_train), model.best_score_, model.score(X_test, y_test))"
+                    ]
+                },
+                {
+                    "name": "Randomized Search",
+                    "snippet": [
+                        "from sklearn.model_selection import RandomizedSearchCV",
+                        "from salasml.tuning import random_search_params as rsp",
+                        "",
+                        "model = RandomizedSearchCV(pipeline, rsp._______________, cv=___, scoring='___', n_iter=___, n_jobs=-1, verbose=1, random_state=42)",
+                        "model.fit(X_train, y_train)",
+                        "",
+                        "print(model.best_params_)",
+                        "print(model.score(X_train, y_train), model.best_score_, model.score(X_test, y_test))"
+                    ]
+                },
+                {
+                    "name": "Bayesian Search",
+                    "snippet": [
+                        "from salasml.tuning import bayes_search_params as bsp",
+                        "from skopt import BayesSearchCV",
+                        "",
+                        "model = BayesSearchCV(pipeline, bsp._______________, cv=___, scoring='___', n_iter=___, n_jobs=-1, verbose=1, random_state=42)",
+                        "model.fit(X_train, y_train)",
+                        "",
+                        "print(model.best_params_)",
+                        "print(model.score(X_train, y_train), model.best_score_, model.score(X_test, y_test))"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Save model",
+            "sub-menu": [
+                {
+                    "name": "Save the whole search object",
+                    "snippet": ["save_model(model, \"__________.pkl\")"]
+                },
+                {
+                    "name": "Save best estimator only",
+                    "snippet": ["save_model(model.best_estimator_, \"__________.pkl\")"]
+                }
+            ]
+        }
+    ]
+}
